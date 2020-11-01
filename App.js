@@ -11,6 +11,7 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 import {AuthContext,AuthProvider} from "./src/providers/AuthProvider";
 import NotificationScreen from "./src/screens/NotificationScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import PostScreen from "./src/screens/PostScreen";
 
 
 const HomeStack = createStackNavigator();
@@ -23,6 +24,7 @@ const AppDrawerScreen=()=>{
     <AppDrawer.Navigator>
       <AppDrawer.Screen name="Home" component={HomeTabScreen}></AppDrawer.Screen>
       <AppDrawer.Screen name="Profile" component={ProfileScreen}></AppDrawer.Screen>
+      {/* <AppDrawer.Screen name="Post" component={PostScreen}></AppDrawer.Screen> */}
 
     </AppDrawer.Navigator>
   );

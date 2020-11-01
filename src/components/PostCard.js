@@ -1,9 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
 import { View } from "react-native";
 import { Card, Button, Text, Avatar } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
 
 const PostCard = (props) => {
+  let[Counter,setCounter] = useState(0); 
+  console.log(props);
   return (
     <Card>
       <View
@@ -34,10 +36,26 @@ const PostCard = (props) => {
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button
           type="outline"
-          title="  Like (17)"
+          
+          title={Counter}
           icon={<AntDesign name="like2" size={24} color="dodgerblue" />}
+          onPress={
+            function(){
+                setCounter(Counter+1);
+               
+            }}
         />
-        <Button type="solid" title="Comment (10)" />
+        <Button 
+        type="solid" 
+        title="Comment" 
+        icon={<AntDesign name="" size={24} color="white" />}
+        onPress={
+          function(){
+              props.navigation.navigate("Post");
+
+          }
+      }
+        />
       </View>
     </Card>
   );

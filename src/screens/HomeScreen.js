@@ -21,22 +21,21 @@ import { AuthContext } from "../providers/AuthProvider";
 import { getPosts } from "./../requests/Posts";
 import {getUsers} from "./../requests/Users";  
 
-
 import {storeDataJSON} from "../functions/AsyncStorageFunctions";
 import {getDataJSON} from "../functions/AsyncStorageFunctions";
 
 const HomeScreen = (props) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState("");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [userpost,setuserpost]=useState([]);
+  const [data, setData] = useState("");
 
   const loadPosts = async () => {
     setLoading(true);
     const response = await getPosts();
     if (response.ok) {
-      setPosts(response.data);
+      //setPosts(response.data);
     }
   };
 
@@ -90,51 +89,37 @@ const HomeScreen = (props) => {
                 placeholder="What's On Your Mind?"
                 onChangeText={
                   function(currentInput){
-                      setuserpost(currentInput)
+                      setPosts(currentInput)
   
                   }
               }
                 leftIcon={<Entypo name="pencil" size={24} color="black" />}
               />
               <Button title="Post" type="outline" onPress={function () {
-                let currentpost={
-                  upost:userpost,
-                }
-                storeDataJSON(userpost,currentpost);
-                console.log(userpost);
-                
-                
-                
+                    let userPost = {
+                      user: auth.CurrentUser.Email,
+                      post: posts,
+                    };
+                    
+                    setData({posts});
+                    auth.CurrentUser.post=posts;
+                    storeDataJSON(auth.CurrentUser.Email, auth.CurrentUser);
+                    
+                    
               }} />
             </Card>
-            <Card>
-            <Button
-            icon={<AntDesign name="save" size={24} color="white" />}
-            title="  save"
-            type="solid"
-            onPress={
-           async function(){
-            let UserDataPost = await getDataJSON(userpost);
-           <Text>{UserDataPost.upost}</Text>
-           console.log(UserDataPost.upost);
-           auth.setCurrentPost(UserDataPost);
-            
-            
 
-         }}
-         />
-         <Text>{auth.CurrentPost.upost}</Text>
-           </Card> 
             
 
             <FlatList
-            
-              data={userpost}
-              renderItem = {function ({ item }){
+              data={posts}
+              renderItem = {function ({item}){
                 return (
+                  
                   <PostCard
                     author={auth.CurrentUser.name}
-                    body={auth.CurrentPost.upost}
+                    title={item.title} 
+                    body={auth.CurrentUser.post}
                   />
                 );
               }}

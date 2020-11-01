@@ -6,8 +6,6 @@ const AuthProvider=(props)=>{
     const[CurrentUser,setCurrentUser]=useState({});
     const[IsLoggedIn,setIsLoggedIn]=useState(false);
 
-    const[CurrentPost,setCurrentPost]=useState({});
-
     return(
         <AuthContext.Provider 
         value={{
@@ -15,8 +13,7 @@ const AuthProvider=(props)=>{
             setCurrentUser:setCurrentUser,
             IsLoggedIn:IsLoggedIn,
             setIsLoggedIn:setIsLoggedIn,
-            CurrentPost:CurrentPost,
-            setCurrentPost:setCurrentPost,
+
         }}>
             {props.children}
         </AuthContext.Provider>
